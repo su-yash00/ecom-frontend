@@ -9,7 +9,12 @@ const DataRouter = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Dashboard />,
+      element: (
+        <>
+          <NavbarComponent />
+          <Dashboard />,
+        </>
+      ),
     },
     {
       path: "/product",
