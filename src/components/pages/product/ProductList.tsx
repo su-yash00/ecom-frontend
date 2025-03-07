@@ -4,6 +4,8 @@ import Product from "./component/Product";
 import axios from "axios";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
+import { Slide, toast } from "react-toastify";
+import InfoIconLight from "../../../img/svg/InfoIconLight";
 
 // interface IProduct {
 //   id: number;
@@ -168,6 +170,20 @@ const ProductList = () => {
       : text;
   };
 
+  const handleToastify = () => {
+    console.log("click");
+
+    toast.error("Please login to continue", {
+      toastId: 1,
+      className: "snackBar",
+      position: "bottom-right",
+      theme: "dark",
+      hideProgressBar: true,
+      autoClose: 5000,
+      transition: Slide,
+    });
+  };
+
   return (
     <>
       {isFetching ? (
@@ -176,7 +192,7 @@ const ProductList = () => {
         </div>
       ) : (
         <div className="products-container p-5" ref={ProductContainerRef}>
-          <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+          <Row xs={1} sm={2} md={3} lg={6} className="g-4">
             {!!productsData?.length &&
               productsData.map((product: IProd, index: number) => (
                 <Col key={product.id}>
@@ -188,13 +204,17 @@ const ProductList = () => {
                       className="product-image"
                     />
                     <Card.Body>
-                      <Card.Title>{product.title}</Card.Title>
-                      <Card.Text>
-                        {truncateText(product.description, 10)}
+                      <Card.Title className="fs-6">
+                        {truncateText(product.title, 3)}
+                      </Card.Title>
+                      <Card.Text className="fs-9">
+                        {truncateText(product.description, 5)}
                       </Card.Text>
                       <div className="d-flex justify-content-between">
                         <span>${product.price}</span>
-                        <Button variant="primary">Add to Cart</Button>
+                        <Button variant="primary" onClick={handleToastify}>
+                          Add to Cart
+                        </Button>
                       </div>
                     </Card.Body>
                   </Card>
