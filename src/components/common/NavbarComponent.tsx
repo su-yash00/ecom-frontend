@@ -18,7 +18,7 @@ const NavbarComponent = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <NavbarBrand href="#home">BookHaven</NavbarBrand>
+        <NavbarBrand href="/">BookHaven</NavbarBrand>
         <NavbarToggle aria-controls="basic-navbar-nav" />
         <NavbarCollapse id="basic-navbar-nav">
           <Nav className="mx-auto">
