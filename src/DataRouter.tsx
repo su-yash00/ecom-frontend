@@ -4,9 +4,14 @@ import Contact from "./components/pages/contact/Contact";
 import ProductList from "./components/pages/product/ProductList";
 import Cart from "./components/pages/cart/Cart";
 import NavbarComponent from "./components/common/NavbarComponent";
+import Login from "./components/common/Login";
 
 const DataRouter = () => {
   const router = createBrowserRouter([
+    {
+      path: "/login",
+      element: <Login />,
+    },
     {
       path: "/",
       element: (

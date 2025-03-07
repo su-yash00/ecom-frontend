@@ -69,11 +69,11 @@ const Dashboard = () => {
     const lastRefresh = Number(localStorage.getItem("lastRefresh")) || 0;
     const currentTime = Date.now();
 
-    if (currentTime - lastRefresh > 2000) {
+    if (currentTime - lastRefresh > 1000) {
       setIsToggled(true);
       setTimeout(() => {
         setIsToggled(false);
-      }, 2000);
+      }, 1000);
     }
 
     localStorage.setItem("lastRefresh", currentTime.toString());
@@ -86,7 +86,7 @@ const Dashboard = () => {
         <Row className="g-4">
           {isToggled
             ? Array.from({ length: 6 }).map((_, index) => (
-                <Col key={index} xs={12} sm={6} lg={4}>
+                <Col key={index} xs={12} sm={6} lg={3}>
                   <Card className="shadow-sm position-relative text-white">
                     <Placeholder
                       as={Card.Img}
@@ -109,7 +109,7 @@ const Dashboard = () => {
                 </Col>
               ))
             : categories.map((category, index) => (
-                <Col key={index} xs={12} sm={6} lg={4}>
+                <Col key={index} xs={12} sm={6} lg={3}>
                   <Card className="shadow-sm position-relative text-white">
                     <Card.Img
                       variant="top"

@@ -50,7 +50,7 @@ const NavbarComponent = () => {
             >
               <NavDropdown.Divider />
               <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="/login">Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </NavbarCollapse>
