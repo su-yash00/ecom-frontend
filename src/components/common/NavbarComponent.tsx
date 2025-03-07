@@ -17,7 +17,7 @@ const NavbarComponent = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <NavbarBrand href="#home">Shoplify</NavbarBrand>
+        <NavbarBrand href="#home">BookHaven</NavbarBrand>
         <NavbarToggle aria-controls="basic-navbar-nav" />
         <NavbarCollapse id="basic-navbar-nav">
           <Nav className="mx-auto">
@@ -35,6 +35,7 @@ const NavbarComponent = () => {
           <Nav className="ms-auto">
             <NavDropdown title="Dropdown" id="basic-nav-dropdown" align="end">
               <NavDropdown.Divider />
+              <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>

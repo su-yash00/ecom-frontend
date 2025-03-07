@@ -1,16 +1,32 @@
 import { Link, Outlet } from "react-router-dom";
 import NavbarComponent from "../../common/NavbarComponent";
 import { useMemo } from "react";
-import { products } from "../product/ProductList";
+// import { products } from "../product/ProductList";
 import Product from "../product/component/Product";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Dashboard = () => {
-  const filteredProducts = useMemo(() => {
-    const filteredProducts = products.filter((item) => item.isNew === true);
-    return filteredProducts;
-  }, [products]);
+  // const filteredProducts = useMemo(() => {
+  //   const filteredProducts = products.filter((item) => item.isNew === true);
+  //   return filteredProducts;
+  // }, [products]);
 
-  console.log("pp", filteredProducts);
+  // console.log("pp", filteredProducts);
+
+  async function fetchProducts() {
+    const response = await axios.get(
+      "https://fakestoreapi.com/products?limit=8"
+    );
+    return response.data;
+  }
+
+  const { data: productsData } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+
+  console.log("data", productsData);
 
   return (
     <>
@@ -21,13 +37,13 @@ const Dashboard = () => {
             <div className="col-lg-6">
               <div className="categories_item categories_large_item">
                 <img
-                  src={require("../../../img/jpg/category-1.jpg")}
+                  src={require("../../../img/jpg/category-7.jpg")}
                   alt=""
                   className="img-fluid"
                 />
                 <div className="categories_text">
-                  <h2>Women's Watch</h2>
-                  <p>Fashionable, affordable and long time guaranteed</p>
+                  <h2>Fantasy</h2>
+                  <p>Epic Adventures Beyond the Realms</p>
                   <button type="button" className="buy-btn">
                     BUY NOW
                   </button>
@@ -40,13 +56,13 @@ const Dashboard = () => {
                 <div className="col-lg-6 col-md-6 col-12">
                   <div className="categories_item">
                     <img
-                      src={require("../../../img/jpg/category-2.jpg")}
+                      src={require("../../../img/jpg/category-5.jpg")}
                       alt=""
                       className="img-fluid"
                     />
                     <div className="categories_text">
-                      <h2>Men's Watch</h2>
-                      <p>Affordable and Fashionable</p>
+                      <h2>Science Fiction</h2>
+                      <p>Journey to the Future</p>
                       <button type="button" className="buy-btn">
                         BUY NOW
                       </button>
@@ -56,13 +72,13 @@ const Dashboard = () => {
                 <div className="col-lg-6 col-md-6 col-12">
                   <div className="categories_item">
                     <img
-                      src={require("../../../img/jpg/category-3.jpg")}
+                      src={require("../../../img/jpg/category-4.jpg")}
                       alt=""
                       className="img-fluid"
                     />
                     <div className="categories_text">
-                      <h2>Kid's Watch</h2>
-                      <p>Simple and Attractive</p>
+                      <h2>Mystery & Thriller</h2>
+                      <p>Unraveling the Truth</p>
                       <button type="button" className="buy-btn">
                         BUY NOW
                       </button>
@@ -80,9 +96,9 @@ const Dashboard = () => {
             <h3 className="">Trending Products</h3>
           </div>
           <div className="products-container">
-            {filteredProducts.map((product) => (
+            {/* {filteredProducts.map((product) => (
               <Product product={product} />
-            ))}
+            ))} */}
           </div>
         </div>
       </section>

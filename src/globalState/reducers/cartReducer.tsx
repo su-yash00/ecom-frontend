@@ -1,14 +1,16 @@
-import { IProduct } from "../../components/pages/product/component/Product";
+// import { IProduct } from "../../components/pages/product/component/Product";
+
+import { IProd } from "../../components/pages/product/ProductList";
 
 // Define the shape of cart state
 interface CartState {
-  cartItems: IProduct[];
+  cartItems: IProd[];
 }
 
 // Define action interface for adding a product to cart
 interface AddToCartAction {
   type: "ADD_TO_CART";
-  payload: IProduct;
+  payload: IProd;
 }
 
 // Union type for all possible cart actions
