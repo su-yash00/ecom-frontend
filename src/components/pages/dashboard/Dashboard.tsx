@@ -1,10 +1,15 @@
-import { Link, Outlet } from "react-router-dom";
-import NavbarComponent from "../../common/NavbarComponent";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 // import { products } from "../product/ProductList";
-import Product from "../product/component/Product";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Placeholder,
+  Row,
+} from "react-bootstrap";
 
 const Dashboard = () => {
   // const filteredProducts = useMemo(() => {
@@ -27,81 +32,112 @@ const Dashboard = () => {
   });
 
   console.log("data", productsData);
+  const categories = [
+    {
+      title: "Fantasy",
+      subtitle: "Epic Adventures Beyond the Realms",
+      image: require("../../../img/jpg/category-7.jpg"),
+    },
+    {
+      title: "Science Fiction",
+      subtitle: "Journey to the Future",
+      image: require("../../../img/jpg/category-5.jpg"),
+    },
+    {
+      title: "Mystery & Thriller",
+      subtitle: "Unraveling the Truth",
+      image: require("../../../img/jpg/category-4.jpg"),
+    },
+    {
+      title: "Horror",
+      subtitle: "Nightmares Come to Life",
+      image: require("../../../img/jpg/category-8.jpg"),
+    },
+    {
+      title: "Biography & Memoir",
+      subtitle: "Lives That Inspire",
+      image: require("../../../img/jpg/category-4.jpg"),
+    },
+    {
+      title: "Poetry",
+      subtitle: "Words That Touch the Soul",
+      image: require("../../../img/jpg/category-10.jpg"),
+    },
+  ];
+  const [isToggled, setIsToggled] = useState(false);
+  useEffect(() => {
+    const lastRefresh = Number(localStorage.getItem("lastRefresh")) || 0;
+    const currentTime = Date.now();
+
+    if (currentTime - lastRefresh > 2000) {
+      setIsToggled(true);
+      setTimeout(() => {
+        setIsToggled(false);
+      }, 2000);
+    }
+
+    localStorage.setItem("lastRefresh", currentTime.toString());
+  }, []);
+  console.log("isToggled", isToggled);
 
   return (
     <>
-      <NavbarComponent />
-      <section className="categories">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-6">
-              <div className="categories_item categories_large_item">
-                <img
-                  src={require("../../../img/jpg/category-7.jpg")}
-                  alt=""
-                  className="img-fluid"
-                />
-                <div className="categories_text">
-                  <h2>Fantasy</h2>
-                  <p>Epic Adventures Beyond the Realms</p>
-                  <button type="button" className="buy-btn">
-                    BUY NOW
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-6">
-              <div className="row">
-                <div className="col-lg-6 col-md-6 col-12">
-                  <div className="categories_item">
-                    <img
-                      src={require("../../../img/jpg/category-5.jpg")}
-                      alt=""
+      <Container className="py-4">
+        <Row className="g-4">
+          {isToggled
+            ? Array.from({ length: 6 }).map((_, index) => (
+                <Col key={index} xs={12} sm={6} lg={4}>
+                  <Card className="shadow-sm position-relative text-white">
+                    <Placeholder
+                      as={Card.Img}
+                      className="img-fluid bg-secondary"
+                      style={{ height: "200px" }}
+                    />
+                    <Card.ImgOverlay className="d-flex flex-column justify-content-end p-4">
+                      <Placeholder as={Card.Title} animation="wave">
+                        <Placeholder xs={6} />
+                      </Placeholder>
+                      <Placeholder as={Card.Text} animation="wave">
+                        <Placeholder xs={8} />
+                      </Placeholder>
+                      <Placeholder.Button
+                        variant="light"
+                        className="btn-sm w-auto"
+                      />
+                    </Card.ImgOverlay>
+                  </Card>
+                </Col>
+              ))
+            : categories.map((category, index) => (
+                <Col key={index} xs={12} sm={6} lg={4}>
+                  <Card className="shadow-sm position-relative text-white">
+                    <Card.Img
+                      variant="top"
+                      src={category.image}
                       className="img-fluid"
                     />
-                    <div className="categories_text">
-                      <h2>Science Fiction</h2>
-                      <p>Journey to the Future</p>
-                      <button type="button" className="buy-btn">
+                    <Card.ImgOverlay
+                      className="d-flex flex-column justify-content-end p-4"
+                      style={{ background: "rgba(0, 0, 0, 0.5)" }}
+                    >
+                      <Card.Title className="fw-bold">
+                        {category.title}
+                      </Card.Title>
+                      <Card.Text>{category.subtitle}</Card.Text>
+                      <Button variant="light" className="btn-sm w-auto">
                         BUY NOW
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 col-md-6 col-12">
-                  <div className="categories_item">
-                    <img
-                      src={require("../../../img/jpg/category-4.jpg")}
-                      alt=""
-                      className="img-fluid"
-                    />
-                    <div className="categories_text">
-                      <h2>Mystery & Thriller</h2>
-                      <p>Unraveling the Truth</p>
-                      <button type="button" className="buy-btn">
-                        BUY NOW
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className="py-4">
-          <div className="title-text">
-            <h3 className="">Trending Products</h3>
-          </div>
-          <div className="products-container">
-            {/* {filteredProducts.map((product) => (
-              <Product product={product} />
-            ))} */}
-          </div>
-        </div>
-      </section>
+                      </Button>
+                    </Card.ImgOverlay>
+                  </Card>
+                </Col>
+              ))}
+        </Row>
+      </Container>
+      {/* Trending Products */}
+      <Container className="py-4">
+        <h2 className="text-center">Trending Products</h2>
+        {/* Add trending products here */}
+      </Container>
     </>
   );
 };

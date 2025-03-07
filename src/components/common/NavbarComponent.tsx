@@ -1,5 +1,6 @@
 import {
   Container,
+  Image,
   Nav,
   NavDropdown,
   Navbar,
@@ -33,7 +34,20 @@ const NavbarComponent = () => {
           </Nav>
           Cart: {state?.cartItems?.length}
           <Nav className="ms-auto">
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown" align="end">
+            {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown" align="end"> */}
+            <NavDropdown
+              align="end"
+              id="basic-nav-dropdown"
+              title={
+                <Image
+                  src={require("../../img/jpg/dummy_person.jpeg")}
+                  roundedCircle
+                  width={32} // Adjust size as needed
+                  height={32}
+                  className="me-2"
+                />
+              }
+            >
               <NavDropdown.Divider />
               <NavDropdown.Item href="/cart">Cart</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>

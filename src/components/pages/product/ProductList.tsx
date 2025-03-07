@@ -3,6 +3,7 @@ import NavbarComponent from "../../common/NavbarComponent";
 import Product from "./component/Product";
 import axios from "axios";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 
 // interface IProduct {
 //   id: number;
@@ -160,36 +161,48 @@ const ProductList = () => {
 
   console.log("ProductContainerRef", ProductContainerRef);
 
+  const truncateText = (text: string, wordLimit: number) => {
+    const words = text.split(" ");
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : text;
+  };
+
   return (
     <>
       {isFetching ? (
-        <div className="loadingCenter">Loading...</div>
+        <div className="loadingCenter">
+          <Spinner animation="border" role="status" />
+        </div>
       ) : (
-        <div className="products-container" ref={ProductContainerRef}>
-          {!!productsData?.length &&
-            productsData.map((product: IProd, index: number) => (
-              <div
-                className="product"
-                ref={index === productsData?.length - 1 ? targetItemRef : null}
-              >
-                <div className="product-image">
-                  <img src={product.image} alt={product.title} />
-                </div>
-                <div className="product-name">{product.title}</div>
-                <div className="product-price">{product.price}</div>
-                <button
-                  type="button"
-                  // onClick={() => {
-                  //   addToCart(product);
-                  // }}
-                >
-                  AddtoCart
-                </button>
-              </div>
-            ))}
+        <div className="products-container p-5" ref={ProductContainerRef}>
+          <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+            {!!productsData?.length &&
+              productsData.map((product: IProd, index: number) => (
+                <Col key={product.id}>
+                  <Card className="h-100 shadow-sm rounded small-card">
+                    <Card.Img
+                      variant="top"
+                      src={product.image}
+                      alt={product.title}
+                      className="product-image"
+                    />
+                    <Card.Body>
+                      <Card.Title>{product.title}</Card.Title>
+                      <Card.Text>
+                        {truncateText(product.description, 10)}
+                      </Card.Text>
+                      <div className="d-flex justify-content-between">
+                        <span>${product.price}</span>
+                        <Button variant="primary">Add to Cart</Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
         </div>
       )}
-      {isFetching && <>Loading</>}
     </>
   );
 };
