@@ -1,8 +1,5 @@
-import { Link, Outlet } from "react-router-dom";
-import NavbarComponent from "../../common/NavbarComponent";
 import { useEffect, useMemo, useState } from "react";
 // import { products } from "../product/ProductList";
-import Product from "../product/component/Product";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -79,7 +76,7 @@ const Dashboard = () => {
       }, 2000);
     }
 
-    localStorage.setItem("lastRefresh", currentTime.toString()); // Convert number to string
+    localStorage.setItem("lastRefresh", currentTime.toString());
   }, []);
   console.log("isToggled", isToggled);
 
